@@ -7,7 +7,6 @@ from Armor import *
 #     player.add_exp(xp)
 
 helm= Helm()
-print(helm)
 chest= Chest()
 legs = Legs()
 boots = Boots()

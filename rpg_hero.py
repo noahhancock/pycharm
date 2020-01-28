@@ -1,5 +1,5 @@
 import random
-
+from Armor import *
 class Hero(object):
     race_list = ["Human","Elf","Dwarf","Elk"]
     class_list = ["Warrior","Scholar","Killer","Elk"]
@@ -35,6 +35,41 @@ class Hero(object):
         self.gloves= []
         self.right_hand= []
         self.left_hand= []
+        self.pop_inv()
+
+    def pop_inv(self):
+            x = random.randint(0,3)
+            for i in range(x):
+                self.inventory.append("Health potion")
+            helm = Helm()
+            chest = Chest()
+            legs = Legs()
+            boots = Boots()
+            gloves = Gloves()
+            x = random.randint(0,3)
+            if x == 0:
+                weapon = Sword()
+            elif x == 1:
+                weapon = Ax()
+            elif x == 2:
+                weapon = Dagger()
+            elif x == 3:
+                weapon = Horns()
+            self.add_to_inv(helm)
+            self.add_to_inv(chest)
+            self.add_to_inv(legs)
+            self.add_to_inv(boots)
+            self.add_to_inv(gloves)
+
+
+        def add_to_inv(self,item):
+            if len(self.inventory) < self.inventory_max:
+                self.inventory.append(item)
+            else:
+                print("you have to many items in your inventory")
+                return
+
+
 
         self.health_mod = 10
         self.max_health = self.level * self.health_mod
@@ -177,8 +212,11 @@ class Hero(object):
         self.exp += xp
         if self.exp >= self.level_up:
             self.levelUp()
-
-
-
-
-
+    def equip_golves(self):
+        if len(self.gloveseq) < 1:
+            for i in self.inventory:
+                x = type(i)
+                if "Gloves" in str(x):
+                    print("you equiped a set of gloves")
+                    print(i)
+                    self.gloveseq

@@ -1,0 +1,26 @@
+from rpg_hero import *
+from Armor import *
+# player = Hero()
+# print(player)
+# while player.level < 5:
+#     xp= random.randint(10,50)
+#     player.add_exp(xp)
+
+helm= Helm()
+print(helm)
+chest= Chest()
+legs = Legs()
+boots = Boots()
+gloves = Gloves()
+print(chest)
+print(legs)
+print(boots)
+print(gloves)
+sword = Sword()
+ax = Ax()
+dagger = Dagger()
+horns = Horns()
+print(sword)
+print(ax)
+print(dagger)
+print(horns)

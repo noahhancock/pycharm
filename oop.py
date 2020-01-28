@@ -16,7 +16,7 @@ class person():
         self.vision= 0
         self.voice= 0
         self.iq= 0
-        self.bday= datetime.datetime.now().time()
+        self.bday= datetime.datetime.now()
         self.lastbday= self.bday
     def intro(self):
         print("Hello my name is "+self.first_name +" "+ self.last_name+" I have "+ self.eyecolor + " eyes and "+ self.haircolor+ " hair. I am "+ str(self.age) +" years old")

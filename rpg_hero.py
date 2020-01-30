@@ -28,14 +28,18 @@ class Hero(object):
 
         self.inventory= []
         self.inventory_max= 10
-        self.head= []
-        self.chest= []
-        self.legs= []
-        self.boots= []
-        self.gloves= []
-        self.right_hand= []
-        self.left_hand= []
+        self.Helm_ep = []
+        self.chest_ep = []
+        self.legs_ep = []
+        self.boots_ep = []
+        self.gloves_ep = []
+        self.right_hand = []
+        self.left_hand = []
         self.pop_inv()
+
+        self.health_mod = 10
+        self.max_health = self.level * self.health_mod
+        self.health_act = self.max_health
 
     def pop_inv(self):
             x = random.randint(0,3)
@@ -62,7 +66,7 @@ class Hero(object):
             self.add_to_inv(gloves)
 
 
-        def add_to_inv(self,item):
+    def add_to_inv(self,item):
             if len(self.inventory) < self.inventory_max:
                 self.inventory.append(item)
             else:
@@ -71,9 +75,7 @@ class Hero(object):
 
 
 
-        self.health_mod = 10
-        self.max_health = self.level * self.health_mod
-        self.health_act = self.max_health
+
 
     def __str__(self):
         return"""
@@ -207,16 +209,312 @@ class Hero(object):
             else:
                 print("you don't have that many points")
 
-    def add_exp(self,xp):
+    def add_exp(self, xp):
         print("picked up " +str(xp) + " xp")
         self.exp += xp
         if self.exp >= self.level_up:
             self.levelUp()
-    def equip_golves(self):
-        if len(self.gloveseq) < 1:
-            for i in self.inventory:
-                x = type(i)
-                if "Gloves" in str(x):
-                    print("you equiped a set of gloves")
+
+    def equip_gloves(self):
+        for i in self.inventory:
+            x = type(i)
+            if "Gloves" in str(x):
+                if len(self.gloves_ep) < 1:
+                    print("you equipped a set of gloves")
                     print(i)
-                    self.gloveseq
+                    self.gloves_ep.append(i)
+                    self.inventory.remove(i)
+                    self.deff += self.gloves_ep[0].armor
+                    self.deff += self.gloves_ep[0].stamina
+                    self.deff += self.gloves_ep[0].luck
+                    self.deff += self.gloves_ep[0].iq
+                    self.deff += self.gloves_ep[0].agi
+                else:
+                    print("you need to remove your equipped gloves first")
+                    print("you are wearing a pair of gloves")
+                    print(self.gloves_ep[0])
+                    print("would you like to replace them with")
+                    print(i)
+                    while True:
+                        x = input("yes or no")
+                        if x == "yes":
+                            print("you replaced your gloves")
+                            self.deff -= self.gloves_ep[0].armor
+                            self.stamina -= self.gloves_ep[0].stamina
+                            self.luck -= self.gloves_ep[0].luck
+                            self.iq -= self.gloves_ep[0].iq
+                            self.agi -= self.gloves_ep[0].agi
+                            self.gloves_ep.remove(self.gloves_ep[0])
+                            self.gloves_ep.append(i)
+                            self.inventory.remove(i)
+                            self.deff += self.gloves_ep[0].armor
+                            self.deff += self.gloves_ep[0].stamina
+                            self.deff += self.gloves_ep[0].luck
+                            self.deff += self.gloves_ep[0].iq
+                            self.deff += self.gloves_ep[0].agi
+                            break
+                        elif x == "no":
+                            self.inventory.remove(i)
+                            break
+
+    def equip_chest(self):
+        for i in self.inventory:
+            x = type(i)
+            if "chest" in str(x):
+                if len(self.chest_ep) < 1:
+                    print("you equipped a set of chest")
+                    print(i)
+                    self.chest_ep.append(i)
+                    self.inventory.remove(i)
+                    self.deff += self.chest_ep[0].armor
+                    self.deff += self.chest_ep[0].stamina
+                    self.deff += self.chest_ep[0].luck
+                    self.deff += self.chest_ep[0].iq
+                    self.deff += self.chest_ep[0].agi
+                else:
+                    print("you need to remove your equipped chest first")
+                    print("you are wearing a chest")
+                    print(self.chest_ep[0])
+                    print("would you like to replace them with")
+                    print(i)
+                    while True:
+                        x = input("yes or no")
+                        if x == "yes":
+                            print("you replaced your chest")
+                            self.deff -= self.chest_ep[0].armor
+                            self.stamina -= self.chest_ep[0].stamina
+                            self.luck -= self.chest_ep[0].luck
+                            self.iq -= self.chest_ep[0].iq
+                            self.agi -= self.chest_ep[0].agi
+                            self.chest_ep.remove(self.chest_ep[0])
+                            self.chest_ep.append(i)
+                            self.inventory.remove(i)
+                            self.deff += self.chest_ep[0].armor
+                            self.deff += self.chest_ep[0].stamina
+                            self.deff += self.chest_ep[0].luck
+                            self.deff += self.chest_ep[0].iq
+                            self.deff += self.chest_ep[0].agi
+                            break
+                        elif x == "no":
+                            self.inventory.remove(i)
+                            break
+
+    def equip_helm(self):
+        for i in self.inventory:
+            x = type(i)
+            if "Helm" in str(x):
+                if len(self.Helm_ep) < 1:
+                    print("you equipped a set of Helm")
+                    print(i)
+                    self.Helm_ep.append(i)
+                    self.inventory.remove(i)
+                    self.deff += self.Helm_ep[0].armor
+                    self.deff += self.Helm_ep[0].stamina
+                    self.deff += self.Helm_ep[0].luck
+                    self.deff += self.Helm_ep[0].iq
+                    self.deff += self.Helm_ep[0].agi
+                else:
+                    print("you need to remove your equipped Helm first")
+                    print("you are wearing a Helm")
+                    print(self.Helm_ep[0])
+                    print("would you like to replace them with")
+                    print(i)
+                    while True:
+                        x = input("yes or no")
+                        if x == "yes":
+                            print("you replaced your Helm")
+                            self.deff -= self.Helm_ep[0].armor
+                            self.stamina -= self.Helm_ep[0].stamina
+                            self.luck -= self.Helm_ep[0].luck
+                            self.iq -= self.Helm_ep[0].iq
+                            self.agi -= self.Helm_ep[0].agi
+                            self.Helm_ep.remove(self.Helm_ep[0])
+                            self.Helm_ep.append(i)
+                            self.inventory.remove(i)
+                            self.deff += self.Helm_ep[0].armor
+                            self.deff += self.Helm_ep[0].stamina
+                            self.deff += self.Helm_ep[0].luck
+                            self.deff += self.Helm_ep[0].iq
+                            self.deff += self.Helm_ep[0].agi
+                            break
+                        elif x == "no":
+                            self.inventory.remove(i)
+                            break
+
+    def equip_legs(self):
+        for i in self.inventory:
+            x = type(i)
+            if "Legs" in str(x):
+                if len(self.legs_ep) < 1:
+                    print("you equipped a set of Legs")
+                    print(i)
+                    self.legs_ep.append(i)
+                    self.inventory.remove(i)
+                    self.deff += self.legs_ep[0].armor
+                    self.deff += self.legs_ep[0].stamina
+                    self.deff += self.legs_ep[0].luck
+                    self.deff += self.legs_ep[0].iq
+                    self.deff += self.legs_ep[0].agi
+                else:
+                    print("you need to remove your equipped Legs first")
+                    print("you are wearing a pair of Legs")
+                    print(self.legs_ep[0])
+                    print("would you like to replace them with")
+                    print(i)
+                    while True:
+                        x = input("yes or no")
+                        if x == "yes":
+                            print("you replaced your Legs")
+                            self.deff -= self.legs_ep[0].armor
+                            self.stamina -= self.legs_ep[0].stamina
+                            self.luck -= self.legs_ep[0].luck
+                            self.iq -= self.legs_ep[0].iq
+                            self.agi -= self.legs_ep[0].agi
+                            self.legs_ep.remove(self.legs_ep[0])
+                            self.legs_ep.append(i)
+                            self.inventory.remove(i)
+                            self.deff += self.legs_ep[0].armor
+                            self.deff += self.legs_ep[0].stamina
+                            self.deff += self.legs_ep[0].luck
+                            self.deff += self.legs_ep[0].iq
+                            self.deff += self.legs_ep[0].agi
+                            break
+                        elif x == "no":
+                            self.inventory.remove(i)
+                            break
+
+    def equip_boots(self):
+        for i in self.inventory:
+            x = type(i)
+            if "Boots" in str(x):
+                if len(self.boots_ep) < 1:
+                    print("you equipped a set of Boots")
+                    print(i)
+                    self.boots_ep.append(i)
+                    self.inventory.remove(i)
+                    self.deff += self.boots_ep[0].armor
+                    self.deff += self.boots_ep[0].stamina
+                    self.deff += self.boots_ep[0].luck
+                    self.deff += self.boots_ep[0].iq
+                    self.deff += self.boots_ep[0].agi
+                else:
+                    print("you need to remove your equipped Boots first")
+                    print("you are wearing a pair of Boots")
+                    print(self.boots_ep[0])
+                    print("would you like to replace them with")
+                    print(i)
+                    while True:
+                        x = input("yes or no")
+                        if x == "yes":
+                            print("you replaced your Boots")
+                            self.deff -= self.boots_ep[0].armor
+                            self.stamina -= self.boots_ep[0].stamina
+                            self.luck -= self.boots_ep[0].luck
+                            self.iq -= self.boots_ep[0].iq
+                            self.agi -= self.boots_ep[0].agi
+                            self.boots_ep.remove(self.boots_ep[0])
+                            self.boots_ep.append(i)
+                            self.inventory.remove(i)
+                            self.deff += self.boots_ep[0].armor
+                            self.deff += self.boots_ep[0].stamina
+                            self.deff += self.boots_ep[0].luck
+                            self.deff += self.boots_ep[0].iq
+                            self.deff += self.boots_ep[0].agi
+                            break
+                        elif x == "no":
+                            self.inventory.remove(i)
+                            break
+
+    def equip_all(self):
+        self.equip_helm()
+        self.equip_chest()
+        self.equip_legs()
+        self.equip_gloves()
+        self.equip_boots()
+        self.equip_Weapon()
+
+    def equip_Weapon(self):
+        for i in self.inventory:
+            x = type(i)
+            if "Sword" in str(x) or "Ax" in str(x) or "Dagger" in str(x) or "Horns" in str(x):
+            #if i.eq_type == "Weapon":
+                while True:
+                    x = input("would you like to equip the weapon in your right or left hand")
+                    if x == "right":
+                        if len(self.right_hand) < 1:
+                            print("you equipped a weapon in your right hand")
+                            print(i)
+                            self.right_hand.append(i)
+                            self.inventory.remove(i)
+                            self.atk += self.right_hand[0].attack
+                            self.luck += self.right_hand[0].luck
+                            self.stamina += self.right_hand[0].stamina
+                            self.iq += self.right_hand[0].iq
+                            self.agi += self.right_hand[0].agi
+                            break
+                        else:
+                            print("you already have a weapon in that hand")
+                            print(self.right_hand[0])
+                            print("would you like replace it with")
+                            print(i)
+                            while True:
+                                x = input("yes or no")
+                                if x == "yes":
+                                    print("you have replace your right hand weapon")
+                                    self.atk -= self.right_hand[0].attack
+                                    self.luck -= self.right_hand[0].luck
+                                    self.stamina-= self.right_hand[0].stamina
+                                    self.iq -= self.right_hand[0].iq
+                                    self.agi -= self.right_hand[0].agi
+                                    self.right_hand.remove(self.right_hand[0])
+                                    self.right_hand.append(i)
+                                    self.inventory.append(i)
+                                    self.atk += self.right_hand[0].attack
+                                    self.luck += self.right_hand[0].luck
+                                    self.stamina += self.right_hand[0].stamina
+                                    self.iq += self.right_hand[0].iq
+                                    self.agi += self.right_hand[0].agi
+                                    break
+                                if x == "no":
+                                    self.inventory.append(i)
+                                    break
+                    elif x == "left":
+                        if len(self.left_hand) < 1:
+                            print("you equipped a weapon in your left hand")
+                            print(i)
+                            self.left_hand.append(i)
+                            self.inventory.remove(i)
+                            self.atk += self.left_hand[0].attack
+                            self.luck += self.left_hand[0].luck
+                            self.stamina += self.left_hand[0].stamina
+                            self.iq += self.left_hand[0].iq
+                            self.agi += self.left_hand[0].agi
+                            break
+                        else:
+                            print("you already have a weapon in that hand")
+                            print(self.left_hand[0])
+                            print("would you like replace it with")
+                            print(i)
+                            while True:
+                                x = input("yes or no")
+                                if x == "yes":
+                                    print("you have replace your left hand weapon")
+                                    self.atk -= self.left_hand[0].attack
+                                    self.luck -= self.left_hand[0].luck
+                                    self.stamina -= self.left_hand[0].stamina
+                                    self.iq -= self.left_hand[0].iq
+                                    self.agi -= self.left_hand[0].agi
+                                    self.left_hand.remove(self.left_hand[0])
+                                    self.left_hand.append(i)
+                                    self.inventory.append(i)
+                                    self.atk += self.left_hand[0].attack
+                                    self.luck += self.left_hand[0].luck
+                                    self.stamina += self.left_hand[0].stamina
+                                    self.iq += self.left_hand[0].iq
+                                    self.agi += self.left_hand[0].agi
+                                    break
+                                if x == "no":
+                                    self.inventory.append(i)
+                                    break
+                    else:
+                        print("not an option")

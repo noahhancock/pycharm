@@ -64,6 +64,7 @@ class Hero(object):
             self.add_to_inv(legs)
             self.add_to_inv(boots)
             self.add_to_inv(gloves)
+            self.add_to_inv(weapon)
 
 
     def add_to_inv(self,item):
@@ -114,24 +115,30 @@ class Hero(object):
 
     def set_mods(self):
         if self.playerclass == "Warrior":
+            self.atklist = ["normal", "med", "strong"]
             self.stamina = random.randint(5,15)
             self.agi = random.randint(5,10)
             self.iq = random.randint(1,10)
             self.deff = random.randint(5,15)
             self.atk = random.randint(5,20)
         if self.playerclass == "Scholar":
+            self.atklist = ["normal", "med", "strong"]
             self.stamina = random.randint(5,10)
             self.iq = random.randint(5,20)
             self.atk = random.randint(5,10)
         if self.playerclass == "Elk":
+            self.atklist = ["normal", "med", "strong"]
             self.deff = random.randint(10,15)
             self.atk = random.randint(10,20)
             self.iq = random.randint(1,5)
             self.agi = random.randint(5,15)
+            self.stamina = random.randint(5, 15)
         if self.playerclass == "Killer":
+            self.atklist = ["normal", "med", "strong"]
             self.atk = random.randint(20,25)
             self.luck = random.randint(5,15)
             self.iq = 10
+            self.stamina = random.randint(5, 15)
         if self.race == "Human":
             self.stamina += 2
             self.agi += 2
@@ -142,7 +149,11 @@ class Hero(object):
         if self.race == "Elf":
             self.stamina += 8
             self.iq += 4
+            self.luck += 2
+            self.deff += 2
+            self.atk += 2
         if self.race == "Dwarf":
+            self.stamina += 2
             self.iq -= 2
             self.deff += 4
         if self.race == "Elk":
@@ -154,7 +165,6 @@ class Hero(object):
             self.atk += 20
 
     def Die(self, winner):
-        self.alive= False
         drop_xp = 10 *self.level
         #winner.givexp(drop_xp)
         print(drop_xp)
@@ -260,7 +270,7 @@ class Hero(object):
     def equip_chest(self):
         for i in self.inventory:
             x = type(i)
-            if "chest" in str(x):
+            if "Chest" in str(x):
                 if len(self.chest_ep) < 1:
                     print("you equipped a set of chest")
                     print(i)
@@ -435,6 +445,7 @@ class Hero(object):
 
     def equip_Weapon(self):
         for i in self.inventory:
+            print(i)
             x = type(i)
             if "Sword" in str(x) or "Ax" in str(x) or "Dagger" in str(x) or "Horns" in str(x):
             #if i.eq_type == "Weapon":
@@ -518,3 +529,127 @@ class Hero(object):
                                     break
                     else:
                         print("not an option")
+
+    def use_hp_Potion(self):
+        for i in self.inventory:
+            if i == "Health potion":
+                self.health_act = self.max_health
+                self.inventory.remove(i)
+                return
+
+    def Attack_turn(self):
+        roll = random.randint(1,6)
+        if roll == 1:
+            print(self.name,"Missed")
+            return 0
+        roll = random.randint(1,12)
+        if self.playerclass == "Warrior":
+            for i in range((self.atklist)):
+                print(i + 1, self.atklist[i])
+            while True:
+                x = input("What attack would you like to use 1 2 3 or 4  use a health potion")
+                if x == "1":
+                    attk = ((self.atk + self.stamina)*roll)*.1
+                    break
+                elif x == "2" and self.stamina > 10:
+                    attk = ((self.atk + self.stamina)*roll)*.2
+                    self.stamina -= 10
+                    break
+                elif x == "3" and self.stamina > 20:
+                    attk = ((self.atk + self.stamina)*roll)*.3
+                    self.stamina -= 20
+                    break
+                elif x == "4":
+                    self.use_hp_Potion()
+                    break
+                else:
+                    print("not an option")
+        elif self.playerclass == "Scholar":
+            for i in range(len(self.atklist)):
+                print(i + 1, self.atklist[i])
+            while True:
+                x = input("What attack would you like to use 1 2 3 or 4  use a health potion")
+                if x == "1":
+                    attk = ((self.atk + self.iq)*roll)*.1
+                    break
+                elif x == "2" and self.iq > 10:
+                    attk = ((self.atk + self.iq)*roll)*.2
+                    self.iq -= 10
+                    break
+                elif x == "3" and self.iq > 20:
+                    attk = ((self.atk + self.iq)*roll)*.3
+                    self.iq -= 20
+                    break
+                elif x == "4":
+                    self.use_hp_Potion()
+                    break
+                else:
+                    print("not an option")
+        elif self.playerclass == "Elk":
+            for i in range(len(self.atklist)):
+                print(i + 1, self.atklist[i])
+            while True:
+                x = input("What attack would you like to use 1 2 3 or 4  use a health potion")
+                if x == "1":
+                    attk = ((self.atk + self.stamina)*roll)*.1
+                    break
+                elif x == "2" and self.stamina > 10:
+                    attk = ((self.atk + self.stamina)*roll)*.2
+                    self.stamina -= 10
+                    break
+                elif x == "3" and self.stamina > 20:
+                    attk = ((self.atk + self.stamina)*roll)*.3
+                    self.stamina -= 20
+                    break
+                elif x == "4":
+                    self.use_hp_Potion()
+                    break
+                else:
+                    print("not an option")
+        elif self.playerclass == "Killer":
+            for i in range(len(self.atklist)):
+                print(i + 1, self.atklist[i])
+            while True:
+                x = input("What attack would you like to use 1 2 3 or 4  use a health potion")
+                if x == "1":
+                    attk = ((self.atk + self.luck)*roll)*.1
+                    break
+                elif x == "2" and self.luck > 10:
+                    attk = ((self.atk + self.luck)*roll)*.2
+                    self.luck -= 1
+                    break
+                elif x == "3" and self.luck > 20:
+                    attk = ((self.atk + self.luck)*roll)*.3
+                    self.luck -= 2
+                    break
+                elif x == "4":
+                    self.use_hp_Potion()
+                    break
+                else:
+                    print("not an option")
+        roll = random.randint(1,20)
+        if roll == 12:
+             attk = attk*3
+        print(self.name, "did", attk, "damage")
+        return attk
+
+    def defend(self, damage):
+        dmg = damage
+        roll = random.randint(1,20)
+        if roll == 20:
+            print("Blocked")
+            dmg = 0
+        if self.playerclass == "Warrior":
+            block = ((self.deff + self.agi)*roll)*0.1
+        elif self.playerclass == "Scholar":
+            block = ((self.deff + self.agi)*roll)*0.1
+        elif self.playerclass == "Elk":
+            block = ((self.deff + self.agi)*roll)*0.1
+        elif self.playerclass == "Killer":
+            block = ((self.deff + self.luck)*roll)*0.1
+        print(self.name,"blocked", block,"damage")
+        dmg_dealt = dmg - block
+        if dmg_dealt >= 0:
+            self.health_act = self.health_act - dmg_dealt
+        if self.health_act <= 0:
+            self.alive = False
